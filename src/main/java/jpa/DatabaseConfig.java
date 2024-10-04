@@ -21,15 +21,24 @@ import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.support.TransactionTemplate;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
 
+
+
+//@EnableAutoConfiguration
+
+@EnableTransactionManagement
+
+
 @Configuration
 @RequiredArgsConstructor
 @ComponentScan( "jpa")
-@EnableJpaRepositories("jpa.repository")
+//@EntityScan(basePackages = "jpa.model")
+@EnableJpaRepositories(basePackages={"jpa.repository","jpa.service"})//,entityManagerFactoryRef = "jpa"
 @EnableAspectJAutoProxy
 //spring database
 @PropertySource("classpath:database.properties")// go to file in this path dawn we set thise parapetrs
@@ -37,6 +46,7 @@ import java.sql.SQLException;
 public class DatabaseConfig extends AbstractJdbcConfiguration {
 
     private final Environment environment;
+
 
     private final String URL = "url";
     private final String USER = "dbuser";
@@ -64,7 +74,7 @@ public class DatabaseConfig extends AbstractJdbcConfiguration {
         factory.setJpaVendorAdapter(vendorAdapter);
         factory.setPackagesToScan("jpa.model");
         factory.setDataSource(dataSource());
-        factory.afterPropertiesSet();
+        //factory.afterPropertiesSet();
         return factory.getObject();
     }
 
@@ -74,11 +84,12 @@ public class DatabaseConfig extends AbstractJdbcConfiguration {
 
 
 
-//    @Bean
-//    public PlatformTransactionManager transactionManager(EntityManagerFactory entityManagerFactory) {
-//        JpaTransactionManager txManager = new JpaTransactionManager();
-//        txManager.setEntityManagerFactory(entityManagerFactory);
-//        return txManager;
-//    }
+    @Bean//(value = "transactionManager")
+    public PlatformTransactionManager transactionManager(EntityManagerFactory entityManagerFactory) {
+        JpaTransactionManager txManager = new JpaTransactionManager();
+        txManager.setEntityManagerFactory(entityManagerFactory);
+        return txManager;
+    }
+
 
 }

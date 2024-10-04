@@ -30,7 +30,7 @@ import java.util.Optional;
 @ComponentScan(basePackages  = {"jdbc"})
 @Configuration
 @RequiredArgsConstructor
-//@EnableAspectJAutoProxy
+@EnableAspectJAutoProxy
 @EnableJdbcRepositories(basePackages  = {"jdbc.repository"})//spring database
 @PropertySource("classpath:database.properties")// go to file in this path dawn we set thise parapetrs
 
