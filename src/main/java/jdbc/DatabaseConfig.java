@@ -1,19 +1,13 @@
 package jdbc;
 
 import jdbc.mapper.PersonMapper;
-import jdbc.model.Person;
 import jdbc.repository.PersonRepository;
-import jdbc.repository.iml.PersonRepositoryImplJdbc;
-import jdbc.repository.iml.PersonRepositorySimple;
 import jdbc.repository.iml.PersonRepositorySpringJDBCImpl;
-import jdbc.service.PersonService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.*;
 import org.springframework.core.env.Environment;
 import org.springframework.data.jdbc.repository.config.AbstractJdbcConfiguration;
 import org.springframework.data.jdbc.repository.config.EnableJdbcRepositories;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -24,15 +18,13 @@ import org.springframework.transaction.support.TransactionTemplate;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
-import java.util.List;
-import java.util.Optional;
 
 @ComponentScan(basePackages  = {"jdbc"})
 @Configuration
 @RequiredArgsConstructor
 @EnableAspectJAutoProxy
 @EnableJdbcRepositories(basePackages  = {"jdbc.repository"})//spring database
-@PropertySource("classpath:database.properties")// go to file in this path dawn we set thise parapetrs
+@PropertySource("classpath:db/database.properties")// go to file in this path dawn we set thise parapetrs
 
 public class DatabaseConfig extends AbstractJdbcConfiguration {
 
@@ -77,10 +69,10 @@ public class DatabaseConfig extends AbstractJdbcConfiguration {
         return new PersonMapper();
     }
 
-    @Bean
-    public PersonRepository personRepository(JdbcTemplate jdbcTemplate,TransactionTemplate transactionTemplate,PersonMapper personMapper) throws SQLException {
-        return new PersonRepositorySpringJDBCImpl(jdbcTemplate,transactionTemplate,personMapper);
-    }
+//    @Bean
+//    public PersonRepository personRepository(JdbcTemplate jdbcTemplate,TransactionTemplate transactionTemplate,PersonMapper personMapper) throws SQLException {
+//        return new PersonRepositorySpringJDBCImpl(jdbcTemplate,transactionTemplate,personMapper);
+//    }
 
 //    @Bean
 //    public PersonService personService(){

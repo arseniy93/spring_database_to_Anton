@@ -5,13 +5,16 @@ import jpa.repository.PersonJPARepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.Optional;
 
+@Service
 @RequiredArgsConstructor
-@Service()
 public class PersonService {
+
     private final PersonJPARepository personJPARepository;
-    public List<Person> getAllPerson(){
-        return personJPARepository.findAll();
+
+    public Optional<Person> getAllPerson(Long id) {
+        return personJPARepository.findById(id);
     }
+
 }

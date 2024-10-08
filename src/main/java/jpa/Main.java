@@ -1,26 +1,18 @@
 package jpa;
 
+import jpa.config.DatabaseConfig;
 import jpa.repository.PersonJPARepository;
 import jpa.service.PersonService;
-import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.BeanFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.transaction.annotation.Transactional;
-
-import javax.crypto.spec.PSource;
 
 public class Main {
     public static void main(String[] args) {
-        AnnotationConfigApplicationContext applicationContext=new AnnotationConfigApplicationContext(DatabaseConfig.class);
-        //PersonService personService=applicationContext.getBean("personService", PersonService.class);
-            PersonJPARepository personJPARepository=applicationContext.getBean(PersonJPARepository.class);
-            personJPARepository.findAll();
-        //System.out.println(personService.getAllPerson());
-        System.out.println("jh");;
-
-        // personJPARepository.findAll().forEach(System.out::print);
-       // applicationContext.close();
+        AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(DatabaseConfig.class);
+        PersonJPARepository personJPARepository = applicationContext.getBean(PersonJPARepository.class);
+        System.out.println(personJPARepository.findAll());
+        System.out.println(personJPARepository.findById(1L));
+        System.out.println("jh");
+        PersonService personService=applicationContext.getBean(PersonService.class);
+        System.out.println(personService.getAllPerson(2L));
     }
 }

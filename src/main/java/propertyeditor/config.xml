@@ -1,0 +1,14 @@
+<bean class="org.springframework.beans.factory.config.CustomEditorConfigurer">
+    <property name="customEditors">
+        <map>
+            <entry key="java.util.Date">
+                <bean class="com.propertyeditor.DatePropertyEditor">
+                    <constructor-arg value="yyyy-MM-dd"/>
+                </bean>
+            </entry>
+        </map>
+    </property>
+</bean>
+<bean id="myBean" class="com.example.MyBeanData">
+<property name="date" value="2024-05-02"/>
+</bean>

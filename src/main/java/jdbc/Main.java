@@ -16,10 +16,10 @@ public class Main {
 //        Person person=repository.getPersonById(1L);
        List<Person> person1=personRepositorySimple.findByLastNameOrFirstName("Boyarskiy","Oksi");
         System.out.println(person1);
-//        PersonService personService=applicationContext.getBean(PersonService.class);
-//        Person p= personService.getPerson(2L);
-//        System.out.println(p);
-//        System.out.println(personService.getPerson(2L));
+        PersonService personService=applicationContext.getBean(PersonService.class);
+        Person p= personService.getPerson(2L);
+        System.out.println(p);
+        System.out.println(personService.getPerson(2L));
 
 
     }
